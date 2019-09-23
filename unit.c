@@ -34,7 +34,8 @@ int verify(int expected, int found, const char *message)
 int main()
 {
     /* Initialize. */
-    setksize(K_NO);
+    /* setksize(K_NO); */
+    setksize(K_NO_COL);
     
     /* TODO: Write some unit tests. */
                  

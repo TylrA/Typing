@@ -25,11 +25,11 @@ The program itself provides documentation for the various options.
 USING THE FULL KEYBOARD
 -----------------------
 
-The default setting is to evaluate the main 30 keys on the keyboard (this is how the program was originally written). You can also use it to evaluate the entire keyboard by changing it at runtime or by changing this line near the beginning of `initValues()` in values.c: 
+~~The default setting is to evaluate the main 30 keys on the keyboard (this is how the program was originally written).~~ The default setting is to evaluate the main 30 keys **on a columnar keyboard**. You can also use it to evaluate the entire keyboard by changing it at runtime or by changing this line near the beginning of `initValues()` in values.c: 
 
     fullKeyboard = <K_SETTING>;
 
-To use the main 30 keys write `K_NO`, for the full keyboard use `K_STANDARD`, and for a full Kinesis keyboard use `K_KINESIS`.
+To use the main 30 keys write `K_NO`, for the full keyboard use `K_STANDARD`, and for a full Kinesis keyboard use `K_KINESIS`. (I, Tyler, added a modified version for the main 30 keys on a columnar keyboard, with some additional cost changes. Use `K_NO_COL` for that one.)
 
 For the more casual keyboard optimizer I recommended just optimizing the main 30 keys, as the other keys don't have a very large effect and the rarer keys are much more difficult to re-learn. But if you want maximum optimization, this is the option for you. This option can use a standard keyboard or the Kinesis Advantage Pro keyboard (if you're willing to go to the trouble of re-learning your entire keyboard then you may as well buy a top-of-the-line ergonomic keyboard too).
 

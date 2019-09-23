@@ -29,6 +29,7 @@
 #define K_STANDARD 1
 #define K_KINESIS 2
 #define K_IPHONE 3
+#define K_NO_COL 4 // main 30 keys; columnar
 
 #define TRUE 1
 #define FALSE 0

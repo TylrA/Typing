@@ -66,7 +66,23 @@ int initValues()
 		for (i = 0; i < ksize; ++i)
 			distanceCosts[i] = costsCopy[i];
 		
-	}
+	} else if (fullKeyboard == K_NO_COL) {
+	    // Here are some more keyboard position costs. I based it off of K_NO,
+	    // and modified it with the following considerations: it should be symmetric,
+	    // since I intend to use this for a columnar keyboard; the upward
+	    // extensions of the middle and ring fingers, as well as the downward
+	    // bend of the index, don't seem as expensive to me; and movement in
+	    // general doesn't bother too much, so discrepancies are resolved on the
+	    // "smaller cost" side.
+	    static int64_t costsCopy[KSIZE_MAX] = {
+		40,  20,  20,  30,  60,  60,  30,  20,  20,  40, 
+		00,   0,   0,   0,  30,  30,   0,   0,   0,   0, 
+		70,  70,  60,  20,  60,  60,  20,  60,  70,  70, 
+	    };
+	    
+	    for (i = 0; i < ksize; ++i)
+		distanceCosts[i] = costsCopy[i];
+	    
 
 	// Based on distance from the ctrl key and how much of a stretch it is.
 	shortcutCosts[ 0] =  0; shortcutCosts[ 1] =  0; shortcutCosts[ 2] =  1; shortcutCosts[ 3] =  3; shortcutCosts[ 4] =  4; 
