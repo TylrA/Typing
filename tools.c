@@ -61,6 +61,7 @@ int initData()
     if (fullKeyboard == K_NO) strcpy(keysToInclude, DEFAULT_KEYBOARD_30);
     else if (fullKeyboard == K_STANDARD) strcpy(keysToInclude, DEFAULT_KEYBOARD_STANDARD);
     else if (fullKeyboard == K_KINESIS) strcpy(keysToInclude, DEFAULT_KEYBOARD_KINESIS);
+    else if (fullKeyboard == K_NO_COL) strcpy(keysToInclude, DEFAULT_KEYBOARD_30);
 	
     initKeyboardData();
     initTypingData();
@@ -299,8 +300,56 @@ void initKeyboardData()
 	    FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, FALSE, FALSE, 
 	};
 	copyArray(printable, printableCopy, ksize);
-    }
+    } else if (fullKeyboard == K_NO_COL) {
+	static int fingerCopy[KSIZE_MAX] = {
+	    PINKY, RING, MIDDLE, INDEX, INDEX, INDEX, INDEX, MIDDLE, RING, PINKY, 
+	    PINKY, RING, MIDDLE, INDEX, INDEX, INDEX, INDEX, MIDDLE, RING, PINKY, 
+	    PINKY, RING, MIDDLE, INDEX, INDEX, INDEX, INDEX, MIDDLE, RING, PINKY, 
+	};
+	copyArray(finger, fingerCopy, ksize);
+		
+	static int columnCopy[KSIZE_MAX] = {
+	    0, 1, 2, 3, 4, 4, 3, 2, 1, 0, 
+	    0, 1, 2, 3, 4, 4, 3, 2, 1, 0, 
+	    0, 1, 2, 3, 4, 4, 3, 2, 1, 0, 
+	};
+	copyArray(column, columnCopy, ksize);
+		
+	static int rowCopy[] = {
+	    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+	    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 
+	    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 
+	};
+	copyArray(row, rowCopy, ksize);
+		
+	homeRow = 1;
+		
+	static int handCopy[KSIZE_MAX] = {
+	    LEFT, LEFT, LEFT, LEFT, LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, 
+	    LEFT, LEFT, LEFT, LEFT, LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, 
+	    LEFT, LEFT, LEFT, LEFT, LEFT, RIGHT, RIGHT, RIGHT, RIGHT, RIGHT, 
+	};
+	copyArray(hand, handCopy, ksize);
+		
+	static int isCenterCopy[KSIZE_MAX] = {
+	    FALSE, FALSE, FALSE,  FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, 
+	    FALSE, FALSE, FALSE,  FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, 
+	    FALSE, FALSE, FALSE,  FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, 
+	};
+	copyArray(isCenter, isCenterCopy, ksize);
+		
+	for (i = 0; i < KSIZE_MAX; ++i)
+	    isOutside[i] = FALSE;
+		
+	static int printableCopy[KSIZE_MAX] = {
+	    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+	    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+	    TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, 
+	};
+	copyArray(printable, printableCopy, ksize);
 	
+    }
+    
     for (i = 0; i < ksize; ++i)
 	isCenterOrOutside[i] = isCenter[i] || isOutside[i];
     
@@ -791,6 +840,11 @@ void setksize(int type)
 	ksize = 30;
 	trueksize = 26;
 	kbdFilename = NULL;
+	break;
+    case K_NO_COL:
+	ksize = 30;
+	trueksize = 30;
+	kbdFilename = "columnarLayoutStore.txt";
 	break;
     }
 

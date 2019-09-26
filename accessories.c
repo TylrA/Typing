@@ -93,6 +93,9 @@ int getCommands()
 	    } else if (streq(cmd + str_len, "iphone")) {
 		setksize(K_IPHONE);
 		printf("Keyboard set to iPhone. All user-defined values have been reset.\n\n");
+	    } else if (streq(cmd + str_len, "col")) {
+		setksize(K_NO_COL);
+		printf("Keyboard set to non-full (columnar). All user-defined values have been reset.\n\n");
 	    } else {
 		printf("Undefined input. Valid inputs: \"setksize no\" (do not use full keyboard), \"setksize standard\" (use standard full keyboard), \"setksize kinesis\" (use Kinesis full keyboard).\n\n");
 	    }
@@ -745,6 +748,61 @@ int testFitness()
 	testResult(calcHomeJump(44, 18), homeJump);
 	testResult(calcHomeJump(44, 3), doubleJump);
 		
+	
+    } else if (fullKeyboard == K_NO_COL) {
+	printf("\nTesting calcInRoll():\n");
+	testResult(calcInRoll(0, 0), 0);
+	testResult(calcInRoll(10, 11), inRoll);
+	testResult(calcInRoll(14, 15), 0);
+	testResult(calcInRoll(29, 28), inRoll);
+	testResult(calcInRoll(3, 4), 0);
+	testResult(calcInRoll(4, 3), 0);
+	testResult(calcInRoll(11, 2), 0);
+	testResult(calcInRoll(2, 11), 0);
+		
+	printf("\nTesting calcOutRoll():\n");
+	testResult(calcOutRoll(0, 0), 0);
+	testResult(calcOutRoll(11, 10), outRoll);
+	testResult(calcOutRoll(15, 14), 0);
+	testResult(calcOutRoll(28, 29), outRoll);
+	testResult(calcOutRoll(3, 4), 0);
+	testResult(calcOutRoll(14, 13), 0);
+		
+	printf("\nTesting calcSameFinger():\n");
+	testResult(calcSameFinger(0, 0), 0);
+	testResult(calcSameFinger(10, 0), sameFingerP);
+	testResult(calcSameFinger(11, 21), sameFingerR);
+	testResult(calcSameFinger(7, 27), sameFingerM);
+	testResult(calcSameFinger(13, 4), sameFingerI);
+	testResult(calcSameFinger(0, 4), 0);
+		
+	printf("\nTesting calcRowChange():\n");
+	testResult(calcRowChange(8, 8), 0);
+	testResult(calcRowChange(10, 0), rowChangeUp);
+	testResult(calcRowChange(11, 0), rowChangeUp + handWarp);
+	testResult(calcRowChange(13, 2), rowChangeUp + handSmooth);
+	testResult(calcRowChange(8, 16), rowChangeDown);
+	testResult(calcRowChange(8, 26), rowChangeDown);
+	testResult(calcRowChange(28, 9), rowChangeUp + handWarp);
+	testResult(calcRowChange(25, 5), rowChangeUp);
+		
+	printf("\nTesting calcHomeJump():\n");
+	testResult(calcHomeJump(8, 8), 0);
+	testResult(calcHomeJump(10, 0), 0);
+	testResult(calcHomeJump(11, 0), 0);
+	testResult(calcHomeJump(10, 1), 0);
+	testResult(calcHomeJump(8, 16), 0);
+	testResult(calcHomeJump(8, 26), homeJump + homeJumpIndex);
+	testResult(calcHomeJump(28, 9), homeJump);
+	testResult(calcHomeJump(25, 5), homeJump);
+		
+	printf("\nTesting calcToCenter():\n");
+	testResult(calcToCenter(0, 0), 0);
+	testResult(calcToCenter(13, 14), toCenter);
+	testResult(calcToCenter(17, 15), toCenter);
+	testResult(calcToCenter(4, 1), toCenter);
+	testResult(calcToCenter(25, 9), toCenter);
+	testResult(calcToCenter(25, 15), 0);
 	
     } else {
 	printf("\nTesting calcInRoll():\n");

@@ -510,6 +510,8 @@ int isLegalSwap(Keyboard *k, int i, int j)
 	else return bigLegalBox[i] == bigLegalBox[j];
     } else if (fullKeyboard == K_KINESIS) {
 	return kinesisLegalBox[i] == kinesisLegalBox[j];
+    } else if (fullKeyboard == K_NO_COL) {
+	return legalBox[i] == legalBox[j];
     }
 
     return TRUE;
