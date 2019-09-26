@@ -15,6 +15,6 @@ int main()
     setksize(K_NO);
     getCommands();
     
-	return 0;
+    return 0;
 }
 

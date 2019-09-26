@@ -52,14 +52,14 @@ void runSimpleAlgorithm()
  */
 void runAlgorithm()
 {	
-	struct ThreadArg arg;
-	copyKeyboard(&arg.bestk, &nilKeyboard);
-	arg.numRounds = ALGORITHM_ROUNDS;
-	arg.startTime = time(NULL);
-	arg.numThreads = numThreads;
+    struct ThreadArg arg;
+    copyKeyboard(&arg.bestk, &nilKeyboard);
+    arg.numRounds = ALGORITHM_ROUNDS;
+    arg.startTime = time(NULL);
+    arg.numThreads = numThreads;
     arg.chanceToUsePreviousLayout = CHANCE_TO_USE_PREVIOUS_LAYOUT;
     arg.numberOfSwaps = NUM_SWAPS_BETWEEN_ROUNDS;
-	arg.isFinished = FALSE;
+    arg.isFinished = FALSE;
     
     int runsBeforeChanceInc = RUNS_BEFORE_CHANCE_INC;
     int runsBeforeSwapsInc = RUNS_BEFORE_SWAPS_INC;
@@ -70,20 +70,20 @@ void runAlgorithm()
     int64_t prevBestFitness = FITNESS_MAX;
 	
     int runNum;
-	for (runNum = 0; runNum < MAX_RUNS; ++runNum) {
+    for (runNum = 0; runNum < MAX_RUNS; ++runNum) {
         if (runNum % runsBeforeChanceInc == 0) {
             arg.chanceToUsePreviousLayout =
-                    pow(arg.chanceToUsePreviousLayout, CHANCE_EXPONENTIATOR);
-			runsBeforeChanceInc = (int) (runsBeforeChanceInc * 1.2) + 1;
-			if (detailedOutput)
+		pow(arg.chanceToUsePreviousLayout, CHANCE_EXPONENTIATOR);
+	    runsBeforeChanceInc = (int) (runsBeforeChanceInc * 1.2) + 1;
+	    if (detailedOutput)
                 printf("Chance to use previous layout is now %f.\n",
                        arg.chanceToUsePreviousLayout);
         }
         
         if (runNum % runsBeforeSwapsInc == 0) {
             ++arg.numberOfSwaps;
-			runsBeforeSwapsInc = (int) (runsBeforeSwapsInc * 1.2) + 1;
-			if (detailedOutput)
+	    runsBeforeSwapsInc = (int) (runsBeforeSwapsInc * 1.2) + 1;
+	    if (detailedOutput)
                 printf("Number of swaps between rounds is now %d.\n",
                        arg.numberOfSwaps);
         }
@@ -95,7 +95,7 @@ void runAlgorithm()
                        gtbRounds);
         }
         
-		runThreadsRec((void *) (&arg));
+	runThreadsRec((void *) (&arg));
 		        
         if (arg.bestk.fitness < prevBestFitness) {
             prevBestFitness = arg.bestk.fitness;
@@ -122,7 +122,7 @@ void runAlgorithm()
             printPercentages(&arg.bestk);
             printTime(arg.startTime);
         }
-	}
+    }
 }
 
 /* 
@@ -144,12 +144,12 @@ void runAlgorithm()
  */
 void * runThreadsRec(void *arg)
 {
-	struct ThreadArg *threadArg = (struct ThreadArg *) arg;
+    struct ThreadArg *threadArg = (struct ThreadArg *) arg;
 		
-	struct ThreadArg innerArg;
-	copyThreadArg(&innerArg, threadArg);
-	innerArg.numThreads = threadArg->numThreads - 1;
-	innerArg.isFinished = FALSE;
+    struct ThreadArg innerArg;
+    copyThreadArg(&innerArg, threadArg);
+    innerArg.numThreads = threadArg->numThreads - 1;
+    innerArg.isFinished = FALSE;
 	
     if (threadArg->numThreads > 1) {
         pthread_t thread;
@@ -161,13 +161,13 @@ void * runThreadsRec(void *arg)
         }
     }
 	
-	Keyboard k, prevk;
+    Keyboard k, prevk;
     copyKeyboard(&k, &nilKeyboard);
     copyKeyboard(&prevk, &nilKeyboard);
     
     int i;
-	for (i = 0; threadArg->numThreads <= 1 ? i < threadArg->numRounds :
-                !innerArg.isFinished; ++i) {
+    for (i = 0; threadArg->numThreads <= 1 ? i < threadArg->numRounds :
+	     !innerArg.isFinished; ++i) {
         if (i > 0 && rand() / RAND_MAX < threadArg->chanceToUsePreviousLayout) {
             copyKeyboard(&k, &prevk);
             smartMutate(NULL, &k, threadArg->numberOfSwaps);
@@ -178,7 +178,7 @@ void * runThreadsRec(void *arg)
         anneal(&k, NULL, 0);
         copyKeyboard(&prevk, &k);
         
-		if (k.fitness < threadArg->bestk.fitness) {
+	if (k.fitness < threadArg->bestk.fitness) {
             copyKeyboard(&threadArg->bestk, &k);
             
             /* Only print keyboards on the bottom thread.
@@ -190,11 +190,11 @@ void * runThreadsRec(void *arg)
         }
     }
 		
-	if (innerArg.bestk.fitness < threadArg->bestk.fitness)
-		copyKeyboard(&threadArg->bestk, &innerArg.bestk);
+    if (innerArg.bestk.fitness < threadArg->bestk.fitness)
+	copyKeyboard(&threadArg->bestk, &innerArg.bestk);
 	
-	threadArg->isFinished = TRUE;
-	return NULL;
+    threadArg->isFinished = TRUE;
+    return NULL;
 }
 
 /* Take a great keyboard and make it the best keyboard. Uses an optimization 
@@ -202,14 +202,14 @@ void * runThreadsRec(void *arg)
  */
 void greatToBest(Keyboard *k, int numRounds)
 {
-	struct ThreadArg arg;
+    struct ThreadArg arg;
     initThreadArg(&arg);
-	copyKeyboard(&arg.bestk, k);
-	arg.numRounds = numRounds;
-	arg.numThreads = numThreads;
-	arg.isFinished = FALSE;
+    copyKeyboard(&arg.bestk, k);
+    arg.numRounds = numRounds;
+    arg.numThreads = numThreads;
+    arg.isFinished = FALSE;
 	
-	greatToBestThreadRec((void *) (&arg));
+    greatToBestThreadRec((void *) (&arg));
     copyKeyboard(k, &arg.bestk);
 }
 
@@ -217,13 +217,13 @@ void * greatToBestThreadRec(void *arg)
 {
     struct ThreadArg *threadArg = (struct ThreadArg *) arg;
     
-	Keyboard k;
+    Keyboard k;
     copyKeyboard(&k, &threadArg->bestk);
 	
-	struct ThreadArg innerArg;
-	copyThreadArg(&innerArg, threadArg);
-	innerArg.numThreads = threadArg->numThreads - 1;
-	innerArg.isFinished = FALSE;
+    struct ThreadArg innerArg;
+    copyThreadArg(&innerArg, threadArg);
+    innerArg.numThreads = threadArg->numThreads - 1;
+    innerArg.isFinished = FALSE;
 	
     if (threadArg->numThreads > 1) {
         pthread_t thread;
@@ -254,7 +254,7 @@ void * greatToBestThreadRec(void *arg)
     
     int i;
     for (i = 0; threadArg->numThreads <= 1 ? i < threadArg->numRounds :
-         !innerArg.isFinished; ++i) {
+	     !innerArg.isFinished; ++i) {
         if (i % GTB_ROUNDS_BEFORE_SWAP_INC == GTB_ROUNDS_BEFORE_SWAP_INC - 1) {
             ++numberOfSwaps;
         }
@@ -277,11 +277,11 @@ void * greatToBestThreadRec(void *arg)
         }
     }	
 	   
-	if (innerArg.bestk.fitness < threadArg->bestk.fitness)
-		copyKeyboard(&threadArg->bestk, &innerArg.bestk);
+    if (innerArg.bestk.fitness < threadArg->bestk.fitness)
+	copyKeyboard(&threadArg->bestk, &innerArg.bestk);
 
     threadArg->isFinished = TRUE;
-	return NULL;
+    return NULL;
 }
 
 /*
@@ -292,60 +292,60 @@ void * greatToBestThreadRec(void *arg)
  */
 void greatToBestBruteForce(Keyboard *k)
 {
-	int i, j, length = GTBBF_ROUNDS;
-	int locs[length];
+    int i, j, length = GTBBF_ROUNDS;
+    int locs[length];
 		
-	/* Choose which locs to permute. */
-	for (i = 0, j = monLen - 1; i < length; --j) {
-		while (!isSwappable(monographs[j].key) || isBracket(monographs[j].key) ||
+    /* Choose which locs to permute. */
+    for (i = 0, j = monLen - 1; i < length; --j) {
+	while (!isSwappable(monographs[j].key) || isBracket(monographs[j].key) ||
                keepShiftPair(monographs[j].key) || rand() % 4 == 0)
-			--j;
+	    --j;
 		
-		/* If we run out of characters (which is unlikely), loop back around. 
+	/* If we run out of characters (which is unlikely), loop back around. 
          * WARNING: This may add duplicate characters to locs[]. I don't expect 
          * this to cause problems, but it might.
          */
-		if (j < 0) j = monLen - 1;
+	if (j < 0) j = monLen - 1;
         
-		locs[i] = locWithShifted(k, monographs[j].key);
+	locs[i] = locWithShifted(k, monographs[j].key);
         if (locs[i] != -1)
             ++i;
-	}
+    }
 	
     /* Always add brackets in pairs. */
-	for (i = 0; i < length; ++i) {
-		if (isBracket(charAt(k, locs[i]))) {
-			int savedLoc = locs[(i+1) % length];
+    for (i = 0; i < length; ++i) {
+	if (isBracket(charAt(k, locs[i]))) {
+	    int savedLoc = locs[(i+1) % length];
             char match = getMatchingBracket(charAt(k, locs[i]));
-			locs[(i+1) % length] = locWithShifted(k, match);
+	    locs[(i+1) % length] = locWithShifted(k, match);
             if (locs[(i+1) % length] == -1) {
                 fprintf(stderr, "Error: Unable to find '%c'.\n", match);
             }
-			++i;
+	    ++i;
 			
-			/* If locs already contained the matching bracket, remove one of 
-			 * the copies of the matching bracket and replace it with the 
-			 * character that was removed.
-			 */
-			for (j = 0; j < length; ++j)
-				if (i != j && locs[i] == locs[j])
-					locs[j] = savedLoc;
-		}
+	    /* If locs already contained the matching bracket, remove one of 
+	     * the copies of the matching bracket and replace it with the 
+	     * character that was removed.
+	     */
+	    for (j = 0; j < length; ++j)
+		if (i != j && locs[i] == locs[j])
+		    locs[j] = savedLoc;
 	}
+    }
 	
-	/* Initialize the keyboards. */
-	calcFitness(k);
-	Keyboard origk;
-	copyKeyboard(&origk, k);
+    /* Initialize the keyboards. */
+    calcFitness(k);
+    Keyboard origk;
+    copyKeyboard(&origk, k);
     
-	/* Find the best permutation. */
+    /* Find the best permutation. */
     int origLocs[length];
     memcpy(origLocs, locs, sizeof(int) * length);
-	tryPermutations(k, &origk, origLocs, locs, length, 0);
+    tryPermutations(k, &origk, origLocs, locs, length, 0);
 }
 
 void tryPermutations(Keyboard *bestk, Keyboard *k, int *origLocs, int *locs,
-                    int length, int index)
+		     int length, int index)
 {
     int i;
     if (index == length - 1) {
@@ -359,11 +359,11 @@ void tryPermutations(Keyboard *bestk, Keyboard *k, int *origLocs, int *locs,
             if (!isSwappable(charAt(k, origLocs[i])) ||
                 !isSwappable(charAt(&saved, locs[i]))) {
                 fprintf(stderr, "Error: In tryPermutations(), trying to swap unswappable %c and %c\n",
-                       charAt(k, origLocs[i]), charAt(&saved, locs[i]));
+			charAt(k, origLocs[i]), charAt(&saved, locs[i]));
             }
 
             if (keepShiftPair(charAt(k, origLocs[i])) ||
-                    keepShiftPair(charAt(&saved, locs[i]))) {
+		keepShiftPair(charAt(&saved, locs[i]))) {
                 fprintf(stderr, "Error: In tryPermutations(), trying to swap %c and %c where one of them must remain in a pair.\n",
                         charAt(k, origLocs[i]), charAt(&saved, locs[i]));
                 copyKeyboard(k, &saved);
@@ -405,88 +405,88 @@ void tryPermutations(Keyboard *bestk, Keyboard *k, int *origLocs, int *locs,
  */
 int64_t anneal(Keyboard *k, int lockins[][2], size_t lockin_length)
 {
-	int64_t lastEvaluation, evaluation;
-	int64_t lastImprovement = 0;
-	int64_t evaluationToBeat = FITNESS_MAX;
+    int64_t lastEvaluation, evaluation;
+    int64_t lastImprovement = 0;
+    int64_t evaluationToBeat = FITNESS_MAX;
 		
-	/* Do the "zeroth" iteration */
-	calcFitness(k);
-	lastEvaluation = evaluation = k->fitness;
+    /* Do the "zeroth" iteration */
+    calcFitness(k);
+    lastEvaluation = evaluation = k->fitness;
         
     /* TODO: Test the three versions of this to see which works best. (See 
      * email "source code" for details.)
      */
-	/* Keep doing iterations while the layout is still improving */
-	do {
-		if (evaluation < lastEvaluation) {
-			lastImprovement = lastEvaluation - evaluation;
-		} else {
-			lastImprovement = 0;
-		}
+    /* Keep doing iterations while the layout is still improving */
+    do {
+	if (evaluation < lastEvaluation) {
+	    lastImprovement = lastEvaluation - evaluation;
+	} else {
+	    lastImprovement = 0;
+	}
 		
-		lastEvaluation = evaluation;
-		evaluationToBeat = lastEvaluation + lastImprovement;
-		evaluation = improveLayout(evaluationToBeat, k, lockins, lockin_length);
-	} while (evaluation < evaluationToBeat);
+	lastEvaluation = evaluation;
+	evaluationToBeat = lastEvaluation + lastImprovement;
+	evaluation = improveLayout(evaluationToBeat, k, lockins, lockin_length);
+    } while (evaluation < evaluationToBeat);
 
-	return evaluation;
+    return evaluation;
 }
 
 /* 
  * Modified from a version written by Chris Johnson.
  */
 int64_t improveLayout(int64_t evaluationToBeat, Keyboard *k, 
-	int lockins[][2], size_t lockin_length)
+		      int lockins[][2], size_t lockin_length)
 {
-	int64_t evaluation;
-	int i, j, inx;
+    int64_t evaluation;
+    int i, j, inx;
 	
-	/* Create a list of indices and shuffle it. */
-	int indices[2 * trueksize];
-	buildShuffledIndices(indices, 2 * trueksize);
+    /* Create a list of indices and shuffle it. */
+    int indices[2 * trueksize];
+    buildShuffledIndices(indices, 2 * trueksize);
 
-	/* try swaps until we beat evaluationToBeat... */
-	for (i = 0; i < 2 * trueksize; ++i) {
-		for (j = i + 1; j < 2 * trueksize; ++j) {
+    /* try swaps until we beat evaluationToBeat... */
+    for (i = 0; i < 2 * trueksize; ++i) {
+	for (j = i + 1; j < 2 * trueksize; ++j) {
 			
-			if (!isLegalSwap(k, indices[i], indices[j])) {
-				continue;
-			}
+	    if (!isLegalSwap(k, indices[i], indices[j])) {
+		continue;
+	    }
 			
-			/* TODO: This is slow. I don't think it will be a significant 
-			 * bottleneck, but I should profile it just in case.
-			 */
-			int skipRound = FALSE;
-			for (inx = 0; inx < lockin_length; ++inx) {
-				if (lockins[inx][0] == indices[i] || 
-						lockins[inx][0] == indices[j] || 
-						lockins[inx][1] == indices[i] || 
-						lockins[inx][1] == indices[j]) {
-					skipRound = TRUE;
-					break;
-				}
-			}
-			if (skipRound) {
-				continue;
-			}
-			
-			swap(k, indices[i], indices[j]); 
-			
-			calcFitness(k);
-			evaluation = k->fitness;
-
-			if (evaluation < evaluationToBeat) {
-				/* good swap--keep it */
-				return evaluation;
-			} else {
-				/* bad swap--undo it */
-				swap(k, indices[i], indices[j]);
-			}
+	    /* TODO: This is slow. I don't think it will be a significant 
+	     * bottleneck, but I should profile it just in case.
+	     */
+	    int skipRound = FALSE;
+	    for (inx = 0; inx < lockin_length; ++inx) {
+		if (lockins[inx][0] == indices[i] || 
+		    lockins[inx][0] == indices[j] || 
+		    lockins[inx][1] == indices[i] || 
+		    lockins[inx][1] == indices[j]) {
+		    skipRound = TRUE;
+		    break;
 		}
-	}
+	    }
+	    if (skipRound) {
+		continue;
+	    }
+			
+	    swap(k, indices[i], indices[j]); 
+			
+	    calcFitness(k);
+	    evaluation = k->fitness;
 
-	/* ...or not */
-	return evaluationToBeat;
+	    if (evaluation < evaluationToBeat) {
+		/* good swap--keep it */
+		return evaluation;
+	    } else {
+		/* bad swap--undo it */
+		swap(k, indices[i], indices[j]);
+	    }
+	}
+    }
+
+    /* ...or not */
+    return evaluationToBeat;
 }
 
 /* 
@@ -513,41 +513,41 @@ int64_t improveLayout(int64_t evaluationToBeat, Keyboard *k,
  */
 int smartMutate(int swapIndices[][2], Keyboard *k, int numberOfSwaps)
 {
-	int q = monLen / 4;
+    int q = monLen / 4;
 	
-	int swapslen = 2 * numberOfSwaps;	
-	char charsToSwap[swapslen];
+    int swapslen = 2 * numberOfSwaps;	
+    char charsToSwap[swapslen];
 	
-	int i, j;
+    int i, j;
 	
-	/* Fills charsToSwap. */
-	for (j = 0; j < swapslen; ++j) {
-		charsToSwap[j] = monographs[0].key;
+    /* Fills charsToSwap. */
+    for (j = 0; j < swapslen; ++j) {
+	charsToSwap[j] = monographs[0].key;
 
-		for (i = monLen - 1; i >= 0; --i) {
-			if (isSwappable(monographs[i].key) && rand() % q == 0) {
-				charsToSwap[j] = monographs[i].key;
-				break;
-			}
-		}
+	for (i = monLen - 1; i >= 0; --i) {
+	    if (isSwappable(monographs[i].key) && rand() % q == 0) {
+		charsToSwap[j] = monographs[i].key;
+		break;
+	    }
 	}
+    }
 	
-	int lc1, lc2;
-	for (i = 0; i < swapslen; i += 2) {
-		lc1 = locWithShifted(k, charsToSwap[i]);
-		lc2 = locWithShifted(k, charsToSwap[i+1]);
+    int lc1, lc2;
+    for (i = 0; i < swapslen; i += 2) {
+	lc1 = locWithShifted(k, charsToSwap[i]);
+	lc2 = locWithShifted(k, charsToSwap[i+1]);
 		
-		if (swapIndices) {
+	if (swapIndices) {
             swapIndices[i / 2][0] = lc1;
             swapIndices[i / 2][1] = lc2;
         }
 		
-		if (isLegalSwap(k, lc1, lc2)) {
-			swap(k, lc1, lc2);
-		}
+	if (isLegalSwap(k, lc1, lc2)) {
+	    swap(k, lc1, lc2);
 	}
+    }
 	
-	return 0;
+    return 0;
 }
 
 void initThreadArg(struct ThreadArg *arg)

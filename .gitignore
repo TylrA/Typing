@@ -4,6 +4,7 @@
 build
 optimizer
 unit
+debug
 
 # Backup files
 *\#*

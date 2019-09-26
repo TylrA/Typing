@@ -44,11 +44,11 @@ char *kbdFilename;
 #define KSIZE_MAX 200
 #define FINGER_COUNT 10
 
-#define NOT_WORK_WITH_FULL_KEYBOARD(str) \
-	if (ksize != 30) { \
-		fprintf(stderr, "Error: Cannot use %s when keyboard size is not 30.", str); \
-		return -1; \
-	}
+#define NOT_WORK_WITH_FULL_KEYBOARD(str)				\
+    if (ksize != 30) {							\
+	fprintf(stderr, "Error: Cannot use %s when keyboard size is not 30.", str); \
+	return -1;							\
+    }
 
 /* If TRUE, scoreDigraph() uses allDigraphCosts to calculate costs. Otherwise, 
  * calculates costs by calling calcX functions.
@@ -92,15 +92,15 @@ int detailedOutput, numThreads;
  * The Latter: keepZXCV, keepBrackets, keepNumbersShifted
  */
 int keepZXCV, keepQWERTY, keepNumbers, keepBrackets, keepShiftPairs, 
-	keepTab, keepConsonantsRight, 
-	keepNumbersShifted /* for bogboar */;
+    keepTab, keepConsonantsRight, 
+    keepNumbersShifted /* for bogboar */;
 int zCost, xCost, cCost, vCost, qwertyPosCost, qwertyFingerCost, qwertyHandCost, 
-	bracketsCost, numbersShiftedCost;
+    bracketsCost, numbersShiftedCost;
 
 int distance, inRoll, outRoll, sameHand, sameFingerP, sameFingerR, sameFingerM, 
-	sameFingerI, sameFingerT, rowChangeDown, rowChangeUp, handWarp, handSmooth, 
-	homeJump, homeJumpIndex, doubleJump, ringJump, toCenter, toOutside, 
-	shiftCost, doubleShiftCost;
+    sameFingerI, sameFingerT, rowChangeDown, rowChangeUp, handWarp, handSmooth, 
+    homeJump, homeJumpIndex, doubleJump, ringJump, toCenter, toOutside, 
+    shiftCost, doubleShiftCost;
 
 int initValues();
 void initCosts();

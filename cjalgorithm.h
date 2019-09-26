@@ -15,21 +15,21 @@
 #define FILE_READ_NOT_HAPPEN -100
 
 struct ThreadArg {
-	Keyboard bestk;
+    Keyboard bestk;
     
-	int numRounds;
+    int numRounds;
     double chanceToUsePreviousLayout;
     int numberOfSwaps;
     
-	time_t startTime;
+    time_t startTime;
 	
-	/* Indicates that the subroutine should keep creating new threads until 
-	 * this reaches 0.
-	 */
-	int numThreads;
+    /* Indicates that the subroutine should keep creating new threads until 
+     * this reaches 0.
+     */
+    int numThreads;
 	
-	/* Indicates whether the current thread is done running. */
-	int isFinished;
+    /* Indicates whether the current thread is done running. */
+    int isFinished;
 };
 
 void runAlgorithm();
@@ -40,11 +40,11 @@ void * greatToBestThreadRec(void *arg);
 void greatToBestBruteForce(Keyboard *k);
 
 void tryPermutations(Keyboard *bestk, Keyboard *k, int *origLocs, int *locs,
-                    int length, int index);
+		     int length, int index);
 
 int64_t anneal(Keyboard *k, int lockins[][2], size_t lockin_length);
 int64_t improveLayout(int64_t evaluationToBeat, Keyboard *k, 
-	int lockins[][2], size_t lockin_length);
+		      int lockins[][2], size_t lockin_length);
 int smartMutate(int swapIndices[][2], Keyboard *k, int numberOfSwaps);
 
 void initThreadArg(struct ThreadArg *arg);

@@ -67,31 +67,31 @@ struct Digraph digraphs[DI_LEN_MAX];
 #define DEFAULT_KEYBOARD_STANDARD "`1234567890-=qwertyuiop[]\\asdfghjkl;'zxcvbnm,./~!@#$%^&*()_+QWERTYUIOP{}|ASDFGHJKL:\"ZXCVBNM<>?"
 #define DEFAULT_KEYBOARD_KINESIS "1234567890-\tqwertyuiop=asdfghjkl;'zxcvbnm,./`\\[]\n !@#$%^&*()_\tQWERTYUIOP+ASDFGHJKL:\"ZXCVBNM<>?~|{}\n "
 
-#define CHECK_FILE_FOR_NULL(file, filename) \
-	if ((file) == NULL) { \
-		fprintf(stderr, "Unable to open file: %s\n", (filename)); \
-		return 1; \
-	}
+#define CHECK_FILE_FOR_NULL(file, filename)				\
+    if ((file) == NULL) {						\
+	fprintf(stderr, "Unable to open file: %s\n", (filename));	\
+	return 1;							\
+    }
 
 char keysToInclude[200];
 
 typedef struct {
-	char layout[KSIZE_MAX + 1]; /* The one extra character is set to '\0' so 
-								(layout) can be treated as a string. */
-	char shiftedLayout[KSIZE_MAX + 1];
-	int64_t fingerUsage[FINGER_COUNT];
-	int64_t fitness;
-	int64_t distance;
-	int64_t fingerWork;
-	int64_t inRoll;
-	int64_t outRoll;
-	int64_t sameHand;
-	int64_t sameFinger;
-	int64_t rowChange;
-	int64_t homeJump;
-	int64_t ringJump;
-	int64_t toCenter;
-	int64_t toOutside;
+    char layout[KSIZE_MAX + 1]; /* The one extra character is set to '\0' so 
+				   (layout) can be treated as a string. */
+    char shiftedLayout[KSIZE_MAX + 1];
+    int64_t fingerUsage[FINGER_COUNT];
+    int64_t fitness;
+    int64_t distance;
+    int64_t fingerWork;
+    int64_t inRoll;
+    int64_t outRoll;
+    int64_t sameHand;
+    int64_t sameFinger;
+    int64_t rowChange;
+    int64_t homeJump;
+    int64_t ringJump;
+    int64_t toCenter;
+    int64_t toOutside;
 } Keyboard;
 
 
@@ -104,7 +104,7 @@ int initData();
 void initKeyboardData();
 int initTypingData();
 int compileTypingData(char *outfileName, const char *filenames[], 
-		int multipliers[], int length, int unit, int max);
+		      int multipliers[], int length, int unit, int max);
 int sortTypingData(char **keys, int *values, int left, int right);
 int convertEscapeChar(int c);
 
