@@ -750,16 +750,59 @@ int testFitness()
 		
 	
     } else if (fullKeyboard == K_NO_COL) {
+	// All tests assume that the third definition of inRoll is
+	// being used.
 	printf("\nTesting calcInRoll():\n");
 	testResult(calcInRoll(0, 0), 0);
-	testResult(calcInRoll(10, 11), inRoll);
+	testResult(calcInRoll(10, 11), AS * inRoll);
 	testResult(calcInRoll(14, 15), 0);
-	testResult(calcInRoll(29, 28), inRoll);
+	testResult(calcInRoll(29, 28), 0);
 	testResult(calcInRoll(3, 4), 0);
 	testResult(calcInRoll(4, 3), 0);
 	testResult(calcInRoll(11, 2), 0);
 	testResult(calcInRoll(2, 11), 0);
-		
+	testResult(calcInRoll(00, 01), AS * inRoll);
+	testResult(calcInRoll(20, 21), 0);
+	testResult(calcInRoll(10, 12), AS * inRoll);
+	testResult(calcInRoll(10, 02), AS * inRoll);
+	testResult(calcInRoll(20, 13), AS * inRoll);
+	testResult(calcInRoll(20, 22), AS * inRoll);
+	testResult(calcInRoll(00, 02), AS * inRoll);
+	testResult(calcInRoll(10, 04), AT * inRoll);
+	testResult(calcInRoll(10, 01), 0);
+	testResult(calcInRoll(10, 21), 0);
+	testResult(calcInRoll(10, 13), AF * inRoll);
+	testResult(calcInRoll(19, 16), AF * inRoll);
+	testResult(calcInRoll(10, 14), AF * inRoll);
+	testResult(calcInRoll(19, 06), AF * inRoll);
+	testResult(calcInRoll(10, 24), AF * inRoll);
+	testResult(calcInRoll(19, 25), AF * inRoll);
+	testResult(calcInRoll(11, 12), SD * inRoll);
+	testResult(calcInRoll(08, 07), SD * inRoll);
+	testResult(calcInRoll(21, 22), XC * inRoll);
+	testResult(calcInRoll(28, 26), XV * inRoll);
+	testResult(calcInRoll(21, 24), XV * inRoll);
+	testResult(calcInRoll(08, 05), WT * inRoll);
+	testResult(calcInRoll(11, 14), WT * inRoll);
+	testResult(calcInRoll(08, 06), WR * inRoll);
+	testResult(calcInRoll(11, 13), WR * inRoll);
+	testResult(calcInRoll(18, 06), SR * inRoll);
+	testResult(calcInRoll(11, 23), SR * inRoll);
+	testResult(calcInRoll(08, 16), SR * inRoll);
+	testResult(calcInRoll(01, 14), WG * inRoll);
+	testResult(calcInRoll(18, 25), WG * inRoll);
+	testResult(calcInRoll(11, 04), WG * inRoll);
+	testResult(calcInRoll(27, 26), CV * inRoll);
+	testResult(calcInRoll(22, 24), CV * inRoll);
+	testResult(calcInRoll(12, 13), DF * inRoll);
+	testResult(calcInRoll(06, 07), DF * inRoll);
+	testResult(calcInRoll(12, 14), DG * inRoll);
+	testResult(calcInRoll(07, 05), DG * inRoll);
+	testResult(calcInRoll(12, 23), DV * inRoll);
+	testResult(calcInRoll(17, 25), DB * inRoll);
+	testResult(calcInRoll(02, 13), EF * inRoll);
+	testResult(calcInRoll(17, 26), EG * inRoll);
+
 	printf("\nTesting calcOutRoll():\n");
 	testResult(calcOutRoll(0, 0), 0);
 	testResult(calcOutRoll(11, 10), outRoll);

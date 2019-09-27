@@ -15,6 +15,33 @@
 #include <math.h>
 #include "tools.h"
 
+/*
+ * Define all necessary digraphs as used by calcInRoll() in
+ * fitness.c.
+ *
+ * All digraphs refer to the QWERTY locations. For example,
+ * DF refers to the two consecutive keys typed by the middle
+ * and index fingers on the home row.
+ */
+#define AS 5  // QW
+#define AD 7  // AE ZD ZC QE
+#define AT 7
+#define AF 8  // AR AG AV AB
+#define SD 12 // WE
+#define XC 4
+#define XV 4  // XB
+#define WT 8  // SG
+#define WR 11 // SF
+#define SR 10 // SV WF
+#define WG 8  // SB ST
+#define CV 6  // CB
+#define DF 14 // ER
+#define DG 10 // ET
+#define DV 10
+#define DB 7
+#define EF 14
+#define EG 10
+
 /* Takes a Keyboard pointer k and an integer index.
  * 
  * WARNING: Both k and index are evaluated multiple times.

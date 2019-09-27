@@ -327,41 +327,40 @@ inline int calcInRoll(int loc0, int loc1)
     switch (finger[loc0]) {
     case PINKY:
 	if (finger[loc1] == RING && row[loc0] == row[loc1] && row[loc0] < 2)
-	    return 5; // 'AS' 'QW'
+	    return AS * inRoll; // 'AS' 'QW'
 	else if (finger[loc1] == MIDDLE &&
 		 (row[loc1] == row[loc0] || row[loc0] - row[loc1] == 1))
-	    return 7; // 'AD' 'AE' 'ZD' 'ZC' 'QE'
+	    return AD * inRoll; // 'AD' 'AE' 'ZD' 'ZC' 'QE'
 	else if (finger[loc1] == INDEX) {
 	    if (column[loc1] == 4 && row[loc1] == 0)
-		return 7; // 'AT'
+		return AT * inRoll; // 'AT'
 	    else
-		return 8; // 'AF' 'AR' 'AG' 'AV' 'AB'
+		return AF * inRoll; // 'AF' 'AR' 'AG' 'AV' 'AB'
 	}
 	else
 	    return 0; // anything else starting with pinky
-	// AS AD AE AC? AF AG AP AV AT AB WE SD XC SR SF SV DF ER EF EG ET? DV
     case RING:
 	if (finger[loc1] == MIDDLE && row[loc0] == row[loc1]) {
 	    if (row[loc0] < 2)
-		return 12; // 'SD' 'WE'
+		return SD * inRoll; // 'SD' 'WE'
 	    else
-		return 4; // 'XC'
+		return XC * inRoll; // 'XC'
 	}
 	else if (finger[loc1] == INDEX) {
 	    if (row[loc0] == row[loc1]) {
 		if (row[loc0] == 2)
-		    return 4; // 'XV' 'XB'
+		    return XV * inRoll; // 'XV' 'XB'
 		else {
 		    if (column[loc1] == 4)
-			return 8; // 'WT' 'SG'
+			return WT * inRoll; // 'WT' 'SG'
 		    else
-			return 11; // 'WR' 'SF'
+			return WR * inRoll; // 'WR' 'SF'
 		}
 	    }
 	    else if (column[loc1] == 3)
-		return 10; // 'SR' 'SV' 'WF'
+		return SR * inRoll; // 'SR' 'SV' 'WF'
 	    else if (row[loc0] < 2)
-		return 8; // 'WG' 'SB' 'ST' 
+		return WG * inRoll; // 'WG' 'SB' 'ST' 
 	    else
 		return 0;
 	}
@@ -371,24 +370,24 @@ inline int calcInRoll(int loc0, int loc1)
     case MIDDLE:
 	if (row[loc1] == row[loc0]) {
 	    if (row[loc0] == 2)
-		return 6; // 'CV' 'CB'
+		return CV * inRoll; // 'CV' 'CB'
 	    else if (column[loc1] == 3)
-		return 14; // 'DF' 'ER'
+		return DF * inRoll; // 'DF' 'ER'
 	    else
-		return 10; // 'DG' 'ET'
+		return DG * inRoll; // 'DG' 'ET'
 	}
 	else if (row[loc1] - row[loc0] == 1) {
 	    if (row[loc0] == 1) {
 		if (column[loc1] == 3)
-		    return 10; // 'DV'
+		    return DV * inRoll; // 'DV'
 		else
-		    return 7; // 'DB'
+		    return DB * inRoll; // 'DB'
 	    }
 	    else {
 		if (column[loc1] == 3)
-		    return 14; // 'EF'
+		    return EF * inRoll; // 'EF'
 		else
-		    return 10; // 'EG'
+		    return EG * inRoll; // 'EG'
 	    }
 	}
 	else
