@@ -147,14 +147,14 @@ int initValues()
 	 *     sameHand + rowChange + homeJump + homeJumpIndex.
 	 */
 	distance =		  1;
-	inRoll =		-40;
+	inRoll =		 -5;
 	outRoll =		  5;
-	sameHand =		  5;
-	sameFingerP =	150;
-	sameFingerR =	140;
-	sameFingerM =	110;
-	sameFingerI =	 90;
-	sameFingerT =	100;
+	sameHand =		 25;
+	sameFingerP =	150;         // pinky
+	sameFingerR =	140;         // ring
+	sameFingerM =	110;         // middle
+	sameFingerI =	 90;         // index
+	sameFingerT =	100;         // thumb
 	rowChangeDown =  10;
 	rowChangeUp =    15;
 	handWarp =		 25;

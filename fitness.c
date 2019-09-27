@@ -304,12 +304,98 @@ inline int calcFingerWork(Keyboard *k)
  */
 inline int calcInRoll(int loc0, int loc1)
 {
+    /*
     if (finger[loc1] == finger[loc0] + 1 && row[loc0] == row[loc1] && 
 	!isCenterOrOutside[loc0] && !isCenterOrOutside[loc1])
 	return inRoll;
     else return 0;
+    */
+    
 //	if (finger[loc1] > finger[loc0] && row[loc0] == row[loc1] && !isCenterOrOutside[loc0] && !isCenterOrOutside[loc1]) return inRoll;
 //	else return 0;
+
+    // ATTENTION: The following definition of inRoll gives a different
+    // weight to different key choices, each of which are labeled in
+    // the comments according to their places on a QWERTY keyboard. For
+    // example, 'DF' refers to the MIDDLE-INDEX digram, where both
+    // fingers are on the home row. Higher values indicate a "better"
+    // or "smoother" inroll.
+    //
+    // Because of the weights, this scenario should only be used with a
+    // small inRoll scalar value (e.g. -5, so -5 * 12 = -60), and
+    // certainly not the default -40.
+    switch (finger[loc0]) {
+    case PINKY:
+	if (finger[loc1] == RING && row[loc0] == row[loc1] && row[loc0] < 2)
+	    return 5; // 'AS' 'QW'
+	else if (finger[loc1] == MIDDLE &&
+		 (row[loc1] == row[loc0] || row[loc0] - row[loc1] == 1))
+	    return 7; // 'AD' 'AE' 'ZD' 'ZC' 'QE'
+	else if (finger[loc1] == INDEX) {
+	    if (column[loc1] == 4 && row[loc1] == 0)
+		return 7; // 'AT'
+	    else
+		return 8; // 'AF' 'AR' 'AG' 'AV' 'AB'
+	}
+	else
+	    return 0; // anything else starting with pinky
+	// AS AD AE AC? AF AG AP AV AT AB WE SD XC SR SF SV DF ER EF EG ET? DV
+    case RING:
+	if (finger[loc1] == MIDDLE && row[loc0] == row[loc1]) {
+	    if (row[loc0] < 2)
+		return 12; // 'SD' 'WE'
+	    else
+		return 4; // 'XC'
+	}
+	else if (finger[loc1] == INDEX) {
+	    if (row[loc0] == row[loc1]) {
+		if (row[loc0] == 2)
+		    return 4; // 'XV' 'XB'
+		else {
+		    if (column[loc1] == 4)
+			return 8; // 'WT' 'SG'
+		    else
+			return 11; // 'WR' 'SF'
+		}
+	    }
+	    else if (column[loc1] == 3)
+		return 10; // 'SR' 'SV' 'WF'
+	    else if (row[loc0] < 2)
+		return 8; // 'WG' 'SB' 'ST' 
+	    else
+		return 0;
+	}
+	else
+	    return 0;
+		
+    case MIDDLE:
+	if (row[loc1] == row[loc0]) {
+	    if (row[loc0] == 2)
+		return 6; // 'CV' 'CB'
+	    else if (column[loc1] == 3)
+		return 14; // 'DF' 'ER'
+	    else
+		return 10; // 'DG' 'ET'
+	}
+	else if (row[loc1] - row[loc0] == 1) {
+	    if (row[loc0] == 1) {
+		if (column[loc1] == 3)
+		    return 10; // 'DV'
+		else
+		    return 7; // 'DB'
+	    }
+	    else {
+		if (column[loc1] == 3)
+		    return 14; // 'EF'
+		else
+		    return 10; // 'EG'
+	    }
+	}
+	else
+	    return 0;
+    default:
+	return 0;
+    }
 }
 
 inline int calcOutRoll(int loc0, int loc1)
