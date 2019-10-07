@@ -329,13 +329,29 @@ inline int calcInRoll(int loc0, int loc1)
 	if (finger[loc1] == RING && row[loc0] == row[loc1] && row[loc0] < 2)
 	    return AS * inRoll; // 'AS' 'QW'
 	else if (finger[loc1] == MIDDLE &&
-		 (row[loc1] == row[loc0] || row[loc0] - row[loc1] == 1))
+		 (row[loc0] == row[loc1] || row[loc0] - row[loc1] == 1))
 	    return AD * inRoll; // 'AD' 'AE' 'ZD' 'ZC' 'QE'
 	else if (finger[loc1] == INDEX) {
-	    if (column[loc1] == 4 && row[loc1] == 0)
-		return AT * inRoll; // 'AT'
-	    else
-		return AF * inRoll; // 'AF' 'AR' 'AG' 'AV' 'AB'
+	    if (column[loc1] == 3) {
+		if (row[loc0] - row[loc1] == 1)
+		    return AR * inRoll; // 'AR' 'ZF'
+		else if (row[loc0] - row[loc1] == -1)
+		    return AV * inRoll; // 'AV' 'QF'
+		else if (row[loc0] - row[loc1] == 0)
+		    return AF * inRoll; // 'AF' 'QR' 'ZV'
+		else
+		    return 0;
+	    }
+	    else {
+		if (row[loc0] - row[loc1] == 1)
+		    return AT * inRoll; // 'AT' 'ZG'
+		else if (row[loc0] - row[loc1] == -1)
+		    return AB * inRoll; // 'AB' 'QG'
+		else if (row[loc0] - row[loc1] == 0)
+		    return AG * inRoll; // 'AG' 'QT' 'ZB'
+		else
+		    return 0;
+	    }
 	}
 	else
 	    return 0; // anything else starting with pinky
@@ -368,6 +384,8 @@ inline int calcInRoll(int loc0, int loc1)
 	    return 0;
 		
     case MIDDLE:
+	if (finger[loc1] != INDEX)
+	    return 0;
 	if (row[loc1] == row[loc0]) {
 	    if (row[loc0] == 2)
 		return CV * inRoll; // 'CV' 'CB'

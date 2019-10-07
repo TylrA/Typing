@@ -25,8 +25,12 @@
  */
 #define AS 5  // QW
 #define AD 7  // AE ZD ZC QE
-#define AT 7
-#define AF 8  // AR AG AV AB
+#define AF 8  // ZV QR
+#define AR 19 // ZF
+#define AV 7  // QF
+#define AG 8  // QT ZB
+#define AT 7  // ZG
+#define AB 6  // QG
 #define SD 12 // WE
 #define XC 4
 #define XV 4  // XB

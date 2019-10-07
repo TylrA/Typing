@@ -20,7 +20,7 @@ int initValues()
 	// layouts.
 	static int64_t costsCopy[KSIZE_MAX] = {
 	    40,  40,  30,  40,  70,  80,  40,  30,  40,  40, 
-	    00,   0,   0,   0,  30,  30,   0,   0,   0,   0, 
+	     0,   0,   0,   0,  30,  30,   0,   0,   0,   0, 
 	    70,  70,  70,  50,  95,  60,  40,  60,  70,  70, 
 	};
 	
@@ -46,11 +46,11 @@ int initValues()
 	// supposed to contain any character.
 	static int64_t costsCopy[KSIZE_MAX] = {
 	    120, 110, 100,  75, 100, 130, 130, 100,  75, 100, 110, 120, 
-	    090,  40,  40,  30,  40,  70,  70,  40,  30,  40,  40,  90, 
-	    060,   0,   0,   0,   0,  40,  40,   0,   0,   0,   0,  60, 
+	     90,  40,  40,  30,  40,  70,  70,  40,  30,  40,  40,  90, 
+	     60,   0,   0,   0,   0,  40,  40,   0,   0,   0,   0,  60, 
 	    999,  70,  70,  70,  50,  80,  80,  50,  70,  70,  70, 999, 
 	    999, 140, 140, 999, 999, 999, 999, 999, 999, 140, 140, 999, 	
-	    000,  50, 999, 999, 999, 999, 999, 999, 999, 999,  50,   0, 
+	      0,  50, 999, 999, 999, 999, 999, 999, 999, 999,  50,   0, 
 	};
 	for (i = 0; i < ksize; ++i)
 	    distanceCosts[i] = costsCopy[i];
@@ -59,8 +59,8 @@ int initValues()
 		
 	// Thumbs are centered over the QWERTY D and K keys.
 	static int64_t costsCopy[KSIZE_MAX] = {
-	    045,  30,  20,  10,  20,  20,  10,  20,  30,  40, 
-	    020,  10,   0,   0,  10,  10,   0,   0,  10, 999,
+	     45,  30,  20,  10,  20,  20,  10,  20,  30,  40, 
+	     20,  10,   0,   0,  10,  10,   0,   0,  10, 999,
 	    999,  60,  50,  30,  20,  20,  50,  60, 999, 999, 
 	};
 	for (i = 0; i < ksize; ++i)
@@ -76,7 +76,7 @@ int initValues()
 	// "smaller cost" side.
 	static int64_t costsCopy[KSIZE_MAX] = {
 	    40,  20,  20,  30,  60,  60,  30,  20,  20,  40, 
-	    00,   0,   0,   0,  30,  30,   0,   0,   0,   0, 
+	     0,   0,   0,   0,  30,  30,   0,   0,   0,   0, 
 	    70,  70,  60,  20,  60,  60,  20,  60,  70,  70, 
 	};
 	// indices for reference
@@ -88,7 +88,7 @@ int initValues()
 	    
 	for (i = 0; i < ksize; ++i)
 	    distanceCosts[i] = costsCopy[i];
-	    
+    }
 
 	// Based on distance from the ctrl key and how much of a stretch it is.
 	shortcutCosts[ 0] =  0; shortcutCosts[ 1] =  0; shortcutCosts[ 2] =  1; shortcutCosts[ 3] =  3; shortcutCosts[ 4] =  4; 
@@ -99,79 +99,79 @@ int initValues()
 	shortcutCosts[25] =  8; shortcutCosts[26] = 10; shortcutCosts[27] = 10; shortcutCosts[28] = 10; shortcutCosts[29] = 10; 
 	
 	return 0;
-    }
+}
 
-    void initCosts()
-    {
-	detailedOutput = TRUE;
+void initCosts()
+{
+    detailedOutput = TRUE;
     
-	/* If you do not wish to use multithreading, set numThreads to 1. */
-	numThreads = 1;
+    /* If you do not wish to use multithreading, set numThreads to 1. */
+    numThreads = 1;
 	
-	keepZXCV = FALSE;
-	keepQWERTY = FALSE;
-	keepNumbers = 1;
-	keepBrackets = TRUE;
-	keepShiftPairs = FALSE;
-	keepTab = TRUE;
-	keepConsonantsRight = FALSE;
-	keepNumbersShifted = FALSE;
+    keepZXCV = FALSE;
+    keepQWERTY = FALSE;
+    keepNumbers = 1;
+    keepBrackets = TRUE;
+    keepShiftPairs = FALSE;
+    keepTab = TRUE;
+    keepConsonantsRight = FALSE;
+    keepNumbersShifted = FALSE;
 	
-	zCost = 10;
-	xCost =  6;
-	cCost = 12;
-	vCost = 14;
-	qwertyPosCost = 14;
-	qwertyFingerCost = 4;
-	qwertyHandCost = 20;
-	bracketsCost = 5000000;
-	numbersShiftedCost = -1000000;
+    zCost = 10;
+    xCost =  6;
+    cCost = 12;
+    vCost = 14;
+    qwertyPosCost = 14;
+    qwertyFingerCost = 4;
+    qwertyHandCost = 20;
+    bracketsCost = 5000000;
+    numbersShiftedCost = -1000000;
 
-	if (fullKeyboard == K_KINESIS) {
-	    fingerPercentMaxes[0] = fingerPercentMaxes[FINGER_COUNT - 1] =  7.5;
-	    fingerPercentMaxes[1] = fingerPercentMaxes[FINGER_COUNT - 2] = 10.0;
-	    fingerPercentMaxes[2] = fingerPercentMaxes[FINGER_COUNT - 3] = 20.0;
-	    fingerPercentMaxes[3] = fingerPercentMaxes[FINGER_COUNT - 4] = 20.0;
-	    fingerPercentMaxes[4] = fingerPercentMaxes[FINGER_COUNT - 5] = 18.0;
-	} else {
-	    fingerPercentMaxes[0] = fingerPercentMaxes[FINGER_COUNT - 1] =  9.0;
-	    fingerPercentMaxes[1] = fingerPercentMaxes[FINGER_COUNT - 2] = 11.5;
-	    fingerPercentMaxes[2] = fingerPercentMaxes[FINGER_COUNT - 3] = 22.0;
-	    fingerPercentMaxes[3] = fingerPercentMaxes[FINGER_COUNT - 4] = 22.0;
-	    fingerPercentMaxes[4] = fingerPercentMaxes[FINGER_COUNT - 5] = 18.0;		
-	}
-
-	
-	fingerWorkCosts[0] = fingerWorkCosts[FINGER_COUNT - 1] = 40;
-	fingerWorkCosts[1] = fingerWorkCosts[FINGER_COUNT - 2] = 30;
-	fingerWorkCosts[2] = fingerWorkCosts[FINGER_COUNT - 3] = 20;
-	fingerWorkCosts[3] = fingerWorkCosts[FINGER_COUNT - 4] = 20;
-	fingerWorkCosts[4] = fingerWorkCosts[FINGER_COUNT - 5] = 20;
-	
-	/* All values are compounding. For example, say we jump over the home row
-	 * on the index finger. The cost is 
-	 *     sameHand + rowChange + homeJump + homeJumpIndex.
-	 */
-	distance =		  1;
-	inRoll =		 -5;
-	outRoll =		  5;
-	sameHand =		 25;
-	sameFingerP =	150;         // pinky
-	sameFingerR =	140;         // ring
-	sameFingerM =	110;         // middle
-	sameFingerI =	 90;         // index
-	sameFingerT =	100;         // thumb
-	rowChangeDown =  10;
-	rowChangeUp =    15;
-	handWarp =		 25;
-	handSmooth =	- 5;
-	homeJump =		100;
-	homeJumpIndex = -90;
-	doubleJump =	220; /* Does not compound with homeJump. */
-	ringJump =       40;
-	toCenter =		 30;
-	toOutside =		 30;
-	
-	shiftCost =		100;
-	doubleShiftCost=150;
+    if (fullKeyboard == K_KINESIS) {
+	fingerPercentMaxes[0] = fingerPercentMaxes[FINGER_COUNT - 1] =  7.5;
+	fingerPercentMaxes[1] = fingerPercentMaxes[FINGER_COUNT - 2] = 10.0;
+	fingerPercentMaxes[2] = fingerPercentMaxes[FINGER_COUNT - 3] = 20.0;
+	fingerPercentMaxes[3] = fingerPercentMaxes[FINGER_COUNT - 4] = 20.0;
+	fingerPercentMaxes[4] = fingerPercentMaxes[FINGER_COUNT - 5] = 18.0;
+    } else {
+	fingerPercentMaxes[0] = fingerPercentMaxes[FINGER_COUNT - 1] =  9.0;
+	fingerPercentMaxes[1] = fingerPercentMaxes[FINGER_COUNT - 2] = 11.5;
+	fingerPercentMaxes[2] = fingerPercentMaxes[FINGER_COUNT - 3] = 22.0;
+	fingerPercentMaxes[3] = fingerPercentMaxes[FINGER_COUNT - 4] = 22.0;
+	fingerPercentMaxes[4] = fingerPercentMaxes[FINGER_COUNT - 5] = 18.0;		
     }
+
+	
+    fingerWorkCosts[0] = fingerWorkCosts[FINGER_COUNT - 1] = 40;
+    fingerWorkCosts[1] = fingerWorkCosts[FINGER_COUNT - 2] = 30;
+    fingerWorkCosts[2] = fingerWorkCosts[FINGER_COUNT - 3] = 20;
+    fingerWorkCosts[3] = fingerWorkCosts[FINGER_COUNT - 4] = 20;
+    fingerWorkCosts[4] = fingerWorkCosts[FINGER_COUNT - 5] = 20;
+	
+    /* All values are compounding. For example, say we jump over the home row
+     * on the index finger. The cost is 
+     *     sameHand + rowChange + homeJump + homeJumpIndex.
+     */
+    distance =		  1;
+    inRoll =		 -5;
+    outRoll =		  5;
+    sameHand =		 25;
+    sameFingerP =	150;         // pinky
+    sameFingerR =	140;         // ring
+    sameFingerM =	110;         // middle
+    sameFingerI =	 90;         // index
+    sameFingerT =	100;         // thumb
+    rowChangeDown =  10;
+    rowChangeUp =    15;
+    handWarp =		 25;
+    handSmooth =	- 5;
+    homeJump =		100;
+    homeJumpIndex = -90;
+    doubleJump =	220; /* Does not compound with homeJump. */
+    ringJump =       40;
+    toCenter =		 30;
+    toOutside =		 30;
+	
+    shiftCost =		100;
+    doubleShiftCost=150;
+}
