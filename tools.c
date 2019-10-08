@@ -674,6 +674,7 @@ void initVariables()
     ADD_VAR(numThreads, "number of threads to create\n");
     ADD_VAR(distance, NULL);
     ADD_VAR(inRoll, NULL);
+    ADD_VAR(inRollOffset, NULL);
     ADD_VAR(outRoll, NULL);
     ADD_VAR(sameHand, NULL);
     ADD_VAR(sameFingerP, NULL);
