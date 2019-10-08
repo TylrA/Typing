@@ -97,10 +97,10 @@ int keepZXCV, keepQWERTY, keepNumbers, keepBrackets, keepShiftPairs,
 int zCost, xCost, cCost, vCost, qwertyPosCost, qwertyFingerCost, qwertyHandCost, 
     bracketsCost, numbersShiftedCost;
 
-int distance, inRoll, outRoll, sameHand, sameFingerP, sameFingerR, sameFingerM, 
-    sameFingerI, sameFingerT, rowChangeDown, rowChangeUp, handWarp, handSmooth, 
-    homeJump, homeJumpIndex, doubleJump, ringJump, toCenter, toOutside, 
-    shiftCost, doubleShiftCost;
+int distance, inRoll, inRollOffset, outRoll, sameHand, sameFingerP, sameFingerR,
+    sameFingerM, sameFingerI, sameFingerT, rowChangeDown, rowChangeUp, handWarp,
+    handSmooth, homeJump, homeJumpIndex, doubleJump, ringJump, toCenter,
+    toOutside, shiftCost, doubleShiftCost;
 
 int initValues();
 void initCosts();

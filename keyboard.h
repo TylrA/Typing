@@ -22,29 +22,33 @@
  * All digraphs refer to the QWERTY locations. For example,
  * DF refers to the two consecutive keys typed by the middle
  * and index fingers on the home row.
+ * 
+ * Some digraphs are included with others because the 
+ * difficulty in typing them was considered roughly equal.
+ * Any equivalent digraphs are commented.
  */
 #define AS 5  // QW
-#define AD 7  // AE ZD ZC QE
-#define AF 8  // ZV QR
-#define AR 19 // ZF
-#define AV 7  // QF
-#define AG 8  // QT ZB
-#define AT 7  // ZG
-#define AB 6  // QG
+#define AD 9  // AE ZD ZC QE
+#define AF 9  // ZV QR
+#define AR 6  // ZF
+#define AV 5  // QF
+#define AG 6  // QT ZB
+#define AT 5  // ZG
+#define AB 4  // QG
 #define SD 12 // WE
-#define XC 4
-#define XV 4  // XB
-#define WT 8  // SG
-#define WR 11 // SF
-#define SR 10 // SV WF
-#define WG 8  // SB ST
-#define CV 6  // CB
+#define XC 9
+#define XV 9  // XB
+#define SG 8  // WT
+#define SF 13 // WR
+#define SR 6  // SV WF
+#define SB 4  // WG ST
+#define CV 10 // CB
 #define DF 14 // ER
-#define DG 10 // ET
+#define DG 8  // ET
 #define DV 10
-#define DB 7
-#define EF 14
-#define EG 10
+#define DB 4
+#define EF 13
+#define EG 6
 
 /* Takes a Keyboard pointer k and an integer index.
  * 

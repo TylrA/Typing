@@ -327,28 +327,28 @@ inline int calcInRoll(int loc0, int loc1)
     switch (finger[loc0]) {
     case PINKY:
 	if (finger[loc1] == RING && row[loc0] == row[loc1] && row[loc0] < 2)
-	    return AS * inRoll; // 'AS' 'QW'
+	    return AS * inRoll + inRollOffset; // 'AS' 'QW'
 	else if (finger[loc1] == MIDDLE &&
 		 (row[loc0] == row[loc1] || row[loc0] - row[loc1] == 1))
-	    return AD * inRoll; // 'AD' 'AE' 'ZD' 'ZC' 'QE'
+	    return AD * inRoll + inRollOffset; // 'AD' 'AE' 'ZD' 'ZC' 'QE'
 	else if (finger[loc1] == INDEX) {
 	    if (column[loc1] == 3) {
 		if (row[loc0] - row[loc1] == 1)
-		    return AR * inRoll; // 'AR' 'ZF'
+		    return AR * inRoll + inRollOffset; // 'AR' 'ZF'
 		else if (row[loc0] - row[loc1] == -1)
-		    return AV * inRoll; // 'AV' 'QF'
+		    return AV * inRoll + inRollOffset; // 'AV' 'QF'
 		else if (row[loc0] - row[loc1] == 0)
-		    return AF * inRoll; // 'AF' 'QR' 'ZV'
+		    return AF * inRoll + inRollOffset; // 'AF' 'QR' 'ZV'
 		else
 		    return 0;
 	    }
 	    else {
 		if (row[loc0] - row[loc1] == 1)
-		    return AT * inRoll; // 'AT' 'ZG'
+		    return AT * inRoll + inRollOffset; // 'AT' 'ZG'
 		else if (row[loc0] - row[loc1] == -1)
-		    return AB * inRoll; // 'AB' 'QG'
+		    return AB * inRoll + inRollOffset; // 'AB' 'QG'
 		else if (row[loc0] - row[loc1] == 0)
-		    return AG * inRoll; // 'AG' 'QT' 'ZB'
+		    return AG * inRoll + inRollOffset; // 'AG' 'QT' 'ZB'
 		else
 		    return 0;
 	    }
@@ -358,25 +358,25 @@ inline int calcInRoll(int loc0, int loc1)
     case RING:
 	if (finger[loc1] == MIDDLE && row[loc0] == row[loc1]) {
 	    if (row[loc0] < 2)
-		return SD * inRoll; // 'SD' 'WE'
+		return SD * inRoll + inRollOffset; // 'SD' 'WE'
 	    else
-		return XC * inRoll; // 'XC'
+		return XC * inRoll + inRollOffset; // 'XC'
 	}
 	else if (finger[loc1] == INDEX) {
 	    if (row[loc0] == row[loc1]) {
 		if (row[loc0] == 2)
-		    return XV * inRoll; // 'XV' 'XB'
+		    return XV * inRoll + inRollOffset; // 'XV' 'XB'
 		else {
 		    if (column[loc1] == 4)
-			return WT * inRoll; // 'WT' 'SG'
+			return SG * inRoll + inRollOffset; // 'WT' 'SG'
 		    else
-			return WR * inRoll; // 'WR' 'SF'
+			return SF * inRoll + inRollOffset; // 'WR' 'SF'
 		}
 	    }
 	    else if (column[loc1] == 3)
-		return SR * inRoll; // 'SR' 'SV' 'WF'
+		return SR * inRoll + inRollOffset; // 'SR' 'SV' 'WF'
 	    else if (row[loc0] < 2)
-		return WG * inRoll; // 'WG' 'SB' 'ST' 
+		return SB * inRoll + inRollOffset; // 'WG' 'SB' 'ST' 
 	    else
 		return 0;
 	}
@@ -388,24 +388,24 @@ inline int calcInRoll(int loc0, int loc1)
 	    return 0;
 	if (row[loc1] == row[loc0]) {
 	    if (row[loc0] == 2)
-		return CV * inRoll; // 'CV' 'CB'
+		return CV * inRoll + inRollOffset; // 'CV' 'CB'
 	    else if (column[loc1] == 3)
-		return DF * inRoll; // 'DF' 'ER'
+		return DF * inRoll + inRollOffset; // 'DF' 'ER'
 	    else
-		return DG * inRoll; // 'DG' 'ET'
+		return DG * inRoll + inRollOffset; // 'DG' 'ET'
 	}
 	else if (row[loc1] - row[loc0] == 1) {
 	    if (row[loc0] == 1) {
 		if (column[loc1] == 3)
-		    return DV * inRoll; // 'DV'
+		    return DV * inRoll + inRollOffset; // 'DV'
 		else
-		    return DB * inRoll; // 'DB'
+		    return DB * inRoll + inRollOffset; // 'DB'
 	    }
 	    else {
 		if (column[loc1] == 3)
-		    return EF * inRoll; // 'EF'
+		    return EF * inRoll + inRollOffset; // 'EF'
 		else
-		    return EG * inRoll; // 'EG'
+		    return EG * inRoll + inRollOffset; // 'EG'
 	    }
 	}
 	else

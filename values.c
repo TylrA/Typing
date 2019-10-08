@@ -154,24 +154,25 @@ void initCosts()
      */
     distance =		  1;
     inRoll =		 -5;
+    inRollOffset =	-25;
     outRoll =		  5;
-    sameHand =		 25;
+    sameHand =		 45;
     sameFingerP =	150;         // pinky
     sameFingerR =	140;         // ring
     sameFingerM =	110;         // middle
     sameFingerI =	 90;         // index
     sameFingerT =	100;         // thumb
-    rowChangeDown =  10;
-    rowChangeUp =    15;
+    rowChangeDown =  0; // 10
+    rowChangeUp =    0; // 15
     handWarp =		 25;
     handSmooth =	- 5;
-    homeJump =		100;
-    homeJumpIndex = -90;
+    homeJump =		50; // 100
+    homeJumpIndex = 0; // -90
     doubleJump =	220; /* Does not compound with homeJump. */
     ringJump =       40;
     toCenter =		 30;
     toOutside =		 30;
 	
-    shiftCost =		100;
+    shiftCost =		0; // 100
     doubleShiftCost=150;
 }
