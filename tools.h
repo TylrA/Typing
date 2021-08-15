@@ -84,6 +84,7 @@ typedef struct {
     int64_t distance;
     int64_t fingerWork;
     int64_t inRoll;
+    int64_t inRollValue;
     int64_t outRoll;
     int64_t sameHand;
     int64_t sameFinger;

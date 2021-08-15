@@ -444,6 +444,7 @@ int printPercentages(Keyboard *k)
     printf("Distance:      %lld\n",   (        (    k->distance  )           ));
     printf("Finger work:   %lld\n",   (        (    k->fingerWork)           ));
     printf("Inward rolls:  %.2f%%\n", ((double)(100*k->inRoll    ) / totalDi ));
+    printf("Inward roll value: %lld\n", (k->inRollValue));
     printf("Outward rolls: %.2f%%\n", ((double)(100*k->outRoll   ) / totalDi ));
     printf("Same hand:     %.2f%%\n", ((double)(100*k->sameHand  ) / totalDi ));
     printf("Same finger:   %.2f%%\n", ((double)(100*k->sameFinger) / totalDi ));

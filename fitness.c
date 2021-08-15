@@ -21,6 +21,7 @@ int calcFitnessDirect(Keyboard *k)
 
     int i;
     k->inRoll     = 0;
+    k->inRollValue = 0;
     k->outRoll    = 0;
     k->sameHand   = 0;
     k->sameFinger = 0;
@@ -43,7 +44,10 @@ inline int scoreDigraphDirect(Keyboard *k, char digraph[], int64_t multiplier)
     for (i = 0; i < 2; ++i) locs[i] = locIgnoreShifted(k, digraph[i]);
 	
     if (hand[locs[0]] == hand[locs[1]]) {
-	if (calcInRoll    (locs[0], locs[1]) != 0) k->inRoll     += multiplier;
+	if (calcInRoll    (locs[0], locs[1]) != 0) {
+	    k->inRoll     += multiplier;
+	    k->inRollValue += calcInRoll (locs[0], locs[1]) * multiplier;
+	}
 	if (calcOutRoll   (locs[0], locs[1]) != 0) k->outRoll    += multiplier;
 	k->sameHand   += multiplier;
 	if (calcSameFinger(locs[0], locs[1]) != 0) k->sameFinger += multiplier;
@@ -107,6 +111,7 @@ int calcFitness(Keyboard *k)
     k->fitness    = 0;
     k->distance   = 0;
     k->inRoll     = 0;
+    k->inRollValue = 0;
     k->outRoll    = 0;
     k->sameHand   = 0;
     k->sameFinger = 0;

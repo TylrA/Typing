@@ -75,9 +75,14 @@ int initValues()
 	// general doesn't bother too much, so discrepancies are resolved on the
 	// "smaller cost" side.
 	static int64_t costsCopy[KSIZE_MAX] = {
+	    /*
 	    40,  20,  20,  30,  60,  60,  30,  20,  20,  40, 
 	     0,   0,   0,   0,  30,  30,   0,   0,   0,   0, 
 	    70,  70,  60,  20,  60,  60,  20,  60,  70,  70, 
+	    */
+	    50,  30,  30,  40,  60,  60,  40,  30,  30,  50, 
+	     0,   0,   0,   0,  40,  40,   0,   0,   0,   0, 
+	    70,  70,  60,  30,  60,  60,  30,  60,  70,  70, 
 	};
 	// indices for reference
 	/*
